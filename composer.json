@@ -1,0 +1,9 @@
+{
+    "config": {
+        "vendor-dir": "assets"
+    },
+    "require": {
+        "enyo/dropzone": "v5.*.*",
+        "uikit/uikit": "3.*.*"
+    }
+}

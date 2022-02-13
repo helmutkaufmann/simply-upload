@@ -1,0 +1,5 @@
+[13-Feb-2022 06:43:49 Europe/Zurich] PHP Fatal error:  Uncaught TypeError: filesize(): Argument #1 ($filename) must be of type string, array given in /home/mercator/public_html/mercatorli_upload/upload.php:20
+Stack trace:
+#0 /home/mercator/public_html/mercatorli_upload/upload.php(20): filesize(Array)
+#1 {main}
+  thrown in /home/mercator/public_html/mercatorli_upload/upload.php on line 20
