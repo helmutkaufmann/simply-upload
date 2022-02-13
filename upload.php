@@ -231,7 +231,7 @@ $filename = pathinfo($_FILES['file']['name'], PATHINFO_FILENAME);
 $extension = $allowedTypes[$filetype];
 $targetDirectory = __DIR__ . "/uploads/" . $date . " - " . $_POST["uploader"] . " - " . $_POST["title"] . " - " . $user;
 
-mkdir($targetDirectory);
+mkdir($targetDirectory,  0755, true);
 
 $newFilepath = $targetDirectory . "/" . $filename . "." . $extension;
 
