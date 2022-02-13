@@ -4,6 +4,7 @@
     "description": "A simple but powerful and somewhat secure uploader",
     "homepage": "https://github.com/helmutkaufmann/simply-upload",
     "keywords": ["uploader", "upload", "dropzone", "php"],
+    "type": "library",
     "license": "GPL-3.0-or-later",
     "authors": [
         {
