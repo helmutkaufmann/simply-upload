@@ -1,9 +1,28 @@
 {
+
+    "name": "mercator/simply-upload",
+    "description": "A simple but powerful and somewhat secure uploader",
+    "homepage": "https://github.com/helmutkaufmann/simply-upload",
+    "keywords": ["uploader", "upload", "dropzone", "php"],
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Helmut Kaufmann",
+            "role": "Author",
+            "email": "software+github@mercator.li",
+            "homepage": "https://mercator.li"
+        }
+    ],
+
+
     "config": {
         "vendor-dir": "assets"
     },
     "require": {
         "enyo/dropzone": "v5.*.*",
         "uikit/uikit": "3.*.*"
-    }
+     }
+
+    "license": "GPL-3.0-or-later"
+
 }
