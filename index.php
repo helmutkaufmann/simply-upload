@@ -16,31 +16,41 @@
 
 <body>
 
+  <?php
+    include_once("config.php");
+    $uniqid=uniqid();
+    $hash=crypt($uniqid, MYSALT);
+  ?>
+
   <div class="uk-padding-large uk-container">
     <h1>Dropload</h1>
 
-    <form action="upload.php" class="uk-form-stacked dropzone" uk-height-viewport="expand: true" method="post" enctype="multipart/form-data" id="dropper">
-      <div class="uk-margin">
-          <label class="uk-form-label" for="form-stacked-text">Uploader (may be empty)</label>
-          <input class="uk-input" type="text" placeholder="Uploader's name or reference" name="uploader" id="uploader">
-      </div>
-      <div class="uk-margin">
-          <label class="uk-form-label" for="form-stacked-text">Event/Title (may be empty)</label>
-          <input class="uk-input" type="text" placeholder="Event/Title of uploaded files" name="title" id="title">
-      </div>
-      <div class="uk-margin">
-          <label class="uk-form-label" for="form-stacked-text">Imnage resizeing (leave empty or set to 0 to maintain original)</label>
-          <input class="uk-input" type="number" min="0" placeholder="Maximum width/height for images" id="resizeto" name="resizeto">
-      </div>
-      <div class="uk-margin">
-          <label class="uk-form-label" for="form-stacked-text" style="display:inline;">Just to make sure you are not a BOT...<br>What is </label>
-          <div id="captchaOne" class="uk-form-label" style="display:inline;"></div>
-          <div class="uk-form-label" style="display:inline;">+</div>
-          <div id="captchaTwo" class="uk-form-label" style="display:inline;"></div>
-          <div class="uk-form-label" style="display:inline;">?</div>
-          <input class="uk-input" type="number" placeholder="Enter the sum before trying to upload any files" id="captchaResult" name="captchaResult">
-      </div>
+    <p>Your public upload URL is: https://<?= $_SERVER["HTTP_HOST"] ?>?identifier=<?=$uniqid ?>
+    <?= (!$_GET['identifier'] ? "<br><b>Please safe the following admin URL as you will not see it again: </b><a href='https://" . $_SERVER["HTTP_HOST"] . "/catalogue.php?secret=" .$hash . "' target='admin'>secret admin link</a>": "") ?></p>
 
+    <form action="upload.php" class="uk-form-stacked dropzone" uk-height-viewport="expand: true" method="post" enctype="multipart/form-data" id="dropper">
+          <div class="uk-margin">
+              <label class="uk-form-label" for="form-stacked-text">Uploader (may be empty)</label>
+              <input class="uk-input" type="text" placeholder="Uploader's name or reference" name="uploader" id="uploader">
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label" for="form-stacked-text">Event/Title (may be empty)</label>
+              <input class="uk-input" type="text" placeholder="Event/Title of uploaded files" name="title" id="title">
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label" for="form-stacked-text">Imnage resizeing (leave empty or set to 0 to maintain original)</label>
+              <input class="uk-input" type="number" min="0" placeholder="Maximum width/height for images" id="resizeto" name="resizeto">
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label" for="form-stacked-text" style="display:inline;">Just to make sure you are not a BOT...<br>What is </label>
+              <div id="captchaOne" class="uk-form-label" style="display:inline;"></div>
+              <div class="uk-form-label" style="display:inline;">+</div>
+              <div id="captchaTwo" class="uk-form-label" style="display:inline;"></div>
+              <div class="uk-form-label" style="display:inline;">?</div>
+              <input class="uk-input" type="number" placeholder="Enter the sum before trying to upload any files" id="captchaResult" name="captchaResult">
+          </div>
+
+          <input class="uk-input" value="<?= $uniqid; ?>" id="identifier" name="identifier" hidden>
     </form>
 
     <script>
@@ -221,6 +231,7 @@
     </script>
 
       <p class="uk-text-small uk-text-center" >&copy; 2022 Helmut Kaufmann</p>
+
   </div>
 </body>
 </html>

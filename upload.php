@@ -1,16 +1,13 @@
 <?php
 
-define("MAXUPLOADSIZE", 20*1024*1024);
-define("EMAIL", "helmut@mercator.li");
-define("RENAMEEXECUTABLE", true);
-
+include_once("config.php");
 include_once("assets/autoload.php");
 
 
 @mkdir($databaseDirectory, 0755, true);
 
 $databaseDirectory = __DIR__ . "/database";
-$uploadDatabase = new \SleekDB\Store("uplaods", $databaseDirectory);
+$uploadDatabase = new \SleekDB\Store("uploads", $databaseDirectory);
 $uploadedFiles = $uploadDatabase->findAll();
 $allUplaods = $uploadDatabase->findAll();
 print_r($allUplaods);
@@ -41,7 +38,7 @@ if ($fileSize > MAXUPLOADSIZE) { // 3 MB (1 byte * 1024 * 1024 * 3 (for 3 MB))
 
 $application = "mercator_uploader_app";
 if(!isset($_COOKIE[$application])) {
-  $user = rand();
+  $user = uniqid();
   $date = date("Y-m-d");
   setcookie($application, $user, time() + (86400 * 30), "/");
   setcookie($application . "date", $date, time() + (86400 * 30), "/");
@@ -242,7 +239,7 @@ else {
     $extension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION) . "_";
 }
 // Define upload directory
-$targetDirectory = __DIR__ . "/uploads/" . $date . " - " . $_POST["uploader"] . " - " . $_POST["title"] . " - " . $user;
+$targetDirectory = "uploads/" . $date . " - " . $_POST["uploader"] . " - " . $_POST["title"] . " - " . $user;
 
 // Create upload directory
 @mkdir($targetDirectory,  0755, true);
@@ -253,10 +250,13 @@ if (!copy($filepath,  "$targetDirectory/$filename.$extension")) {
 unlink($filepath); // Delete the temp file
 
 $uploadInfo = [
- "name" => $_POST["uploader"],
+ "uploader" => $_POST["uploader"],
  "title" => $_POST["title"],
  "date" => $date,
- "filename" => "$targetDirectory/$filename.$extension"
+ "filename" => "$targetDirectory/$filename.$extension",
+ "identifier" => $_POST["identifier"],
+ "secret" => $hash=crypt($_POST["identifier"], "ThisIsMyBloodySalt987")
+
 ];
 $results = $uploadDatabase->insert($uploadInfo);
 

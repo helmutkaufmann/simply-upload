@@ -2,3 +2,4 @@ assets/
 uploads/
 database/
 error_log
+config.php
