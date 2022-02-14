@@ -22,7 +22,8 @@
 
     "require": {
         "enyo/dropzone": "v5.*.*",
-        "uikit/uikit": "3.*.*"
+        "uikit/uikit": "3.*.*",
+        "rakibtg/sleekdb": "^2.13"
      }
 
 }

@@ -4,6 +4,16 @@ define("MAXUPLOADSIZE", 20*1024*1024);
 define("EMAIL", "helmut@mercator.li");
 define("RENAMEEXECUTABLE", true);
 
+include_once("assets/autoload.php");
+
+
+@mkdir($databaseDirectory, 0755, true);
+
+$databaseDirectory = __DIR__ . "/database";
+$uploadDatabase = new \SleekDB\Store("uplaods", $databaseDirectory);
+$uploadedFiles = $uploadDatabase->findAll();
+$allUplaods = $uploadDatabase->findAll();
+print_r($allUplaods);
 
 if (RENAMEEXECUTABLE) {
     $noexecution = "_";
@@ -39,8 +49,6 @@ if(!isset($_COOKIE[$application])) {
   $user = $_COOKIE[$application];
   $date = $_COOKIE[$application ."date"];
 }
-
-
 
 $allowedTypes = [
            'video/3gpp2'                                                               => '3g2',
@@ -200,7 +208,7 @@ $allowedTypes = [
            'video/x-ms-wmv'                                                            => 'wmv',
            'video/x-ms-asf'                                                            => 'wmv',
            'application/xhtml+xml'                                                     => 'xhtml',
-           'application/excel'                                                         => 'xl',
+           'application/excel'                                                         => 'xl'. $noexecution,
            'application/msexcel'                                                       => 'xls' . $noexecution,
            'application/x-msexcel'                                                     => 'xls' . $noexecution,
            'application/x-ms-excel'                                                    => 'xls' . $noexecution,
@@ -208,8 +216,8 @@ $allowedTypes = [
            'application/x-dos_ms_excel'                                                => 'xls' . $noexecution,
            'application/xls'                                                           => 'xls' . $noexecution,
            'application/x-xls'                                                         => 'xls' . $noexecution,
-           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'         => 'xlsx . $noexecution',
-           'application/vnd.ms-excel'                                                  => 'xlsx . $noexecution',
+           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'         => 'xlsx' . $noexecution,
+           'application/vnd.ms-excel'                                                  => 'xlsx' . $noexecution,
            'application/xml'                                                           => 'xml',
            'text/xml'                                                                  => 'xml',
            'text/xsl'                                                                  => 'xsl',
@@ -223,21 +231,33 @@ $allowedTypes = [
            'text/x-scriptzsh'                                                          => 'zsh',
 ];
 
-if (!in_array($filetype, array_keys($allowedTypes))) {
-    die("File not allowed.");
-}
-
+// Define filename based on original filename but without neither directory nor extension
 $filename = pathinfo($_FILES['file']['name'], PATHINFO_FILENAME);
-$extension = $allowedTypes[$filetype];
+
+// Normalize extension. If extension is unknown, add _ to ensure it will not be executed on the server
+if (in_array($filetype, array_keys($allowedTypes))) {
+    $extension = $allowedTypes[$filetype];
+}
+else {
+    $extension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION) . "_";
+}
+// Define upload directory
 $targetDirectory = __DIR__ . "/uploads/" . $date . " - " . $_POST["uploader"] . " - " . $_POST["title"] . " - " . $user;
 
-mkdir($targetDirectory,  0755, true);
+// Create upload directory
+@mkdir($targetDirectory,  0755, true);
 
-$newFilepath = $targetDirectory . "/" . $filename . "." . $extension;
-
-if (!copy($filepath, $newFilepath)) {
+if (!copy($filepath,  "$targetDirectory/$filename.$extension")) {
     die("Can't move file.");
 }
 unlink($filepath); // Delete the temp file
+
+$uploadInfo = [
+ "name" => $_POST["uploader"],
+ "title" => $_POST["title"],
+ "date" => $date,
+ "filename" => "$targetDirectory/$filename.$extension"
+];
+$results = $uploadDatabase->insert($uploadInfo);
 
 echo "File uploaded successfully :)";
