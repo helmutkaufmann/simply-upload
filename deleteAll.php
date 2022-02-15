@@ -16,6 +16,9 @@ foreach ($allUploads as &$upload) {
 
     if (file_exists($upload["filename"])) {
       unlink($upload["filename"]);
+      $filename_no_ext = reset(explode('.', $upload["filename"]));
+      $filename_thumb = $filename_no_ext . '___thumb' . '.jpg';
+      @unlink($filename_thumb);
     }
     $uploadDatabase->deleteById($upload["_id"]);
 

@@ -1,7 +1,7 @@
 <html>
 <head>
 
-  <title>Simply Upload Administration</title>
+  <title>Simply Upload - Administration</title>
   <meta charset="utf-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,13 +54,39 @@
 
   }
 
+
+  <?
+  function generateThumbnail($img, $width = 80, $height = 80, $quality = 80) {
+
+    $filename_no_ext = reset(explode('.', $img));
+    $filename_thumb = $filename_no_ext . '___thumb' . '.jpg';
+
+    if (is_file($img) && (substr(mime_content_type($img), 0, 5) == "image") && !is_file($filename_thumb)) {
+        $imagick = new Imagick(realpath($img));
+        $imagick->setImageFormat('jpeg');
+        $imagick->setImageCompression(Imagick::COMPRESSION_JPEG);
+        $imagick->setImageCompressionQuality($quality);
+        $imagick->thumbnailImage($width, $height, true, false);
+
+        if (file_put_contents($filename_no_ext . '___thumb' . '.jpg', $imagick) === false) {
+            throw new Exception("Could not put contents.");
+        }
+        return true;
+    }
+    else {
+        return false;
+    }
+  }
+  ?>
+
   </script>
 
 </head>
 
 <body> <div class="uk-padding-large uk-container">
 
-  <h1>Dropload Documents</h1>
+  <h1>Simply Upload - Administration</h1>
+  <h5>Documents</h5>
 
   <table class="uk-table  uk-table-striped uk-table-small  uk-table-divider uk-table-middle" id="thetable">
       <thead>
@@ -76,12 +102,13 @@
       <?php
 
       include_once("config.php");
+      include_once("qrcode.php");
       include_once("assets/autoload.php");
 
       @mkdir($databaseDirectory, 0755, true);
       $databaseDirectory = __DIR__ . "/database";
       $uploadDatabase = new \SleekDB\Store("uploads", $databaseDirectory);
-      $uploadedFiles = $uploadDatabase->findAll();
+
       if ($_GET["secret"] == ADMINPASSWORD)
         $allUploads = $uploadDatabase->findAll(["date" => "desc", "uploader" => "asc", "title" => "asc"]);
       else
@@ -90,14 +117,23 @@
       foreach ($allUploads as &$upload) {
 
           if (file_exists($upload["filename"])) {
+
+            generateThumbnail(__DIR__ . "/" . $upload["filename"]);
+            $filename_no_ext = reset(explode('.', $upload["filename"]));
+            $filename_thumb = $filename_no_ext . '___thumb' . '.jpg';
+
             echo "<tr id='rowdocument" . $upload["_id"] . "'>";
             // echo "<td>" . $upload["_id"] . "</td>";
             echo "<td>" . $upload["date"] . "</td>";
             echo "<td>" . $upload["uploader"] . "</td>";
             echo "<td>" . $upload["title"] . "</td>";
-            echo "<td>" . basename($upload["filename"]) . "</td>";
+            if (substr(mime_content_type($upload['filename']), 0, 5) == "image")
+              echo "<td><img src='$filename_thumb' ></td>";
+            else
+              echo "<td>" . basename($upload["filename"]) . "</td>";
+
             // echo "<td>" . $upload["secret"] . "</td>";
-            echo "<td><a class='uk-icon-button' uk-icon='download' href='" . $upload['filename'] . "' target='document'></a></td>";
+            echo "<td><a class='uk-icon-button' uk-icon='download' href='" . $upload['filename'] . "' download></a></td>";
 
             $id=$upload["_id"];
             $secret=$upload["secret"];
@@ -108,6 +144,8 @@
             echo "<button class='uk-icon-button' uk-icon='trash' type='submit'></button></td>";
             echo "</form></tr>";
             echo "<script>deleteDocument('document$id');</script>";
+
+
 
           }
           else {
@@ -131,5 +169,9 @@
     deleteAll("deleteAll");
   </script>
 
+
+  <h5>Download all files</h5>
+  <div class="uk-button uk-button-small uk-button-default uk-width-1-3@s uk-width-1-6@m"><a href="https://<?= $_SERVER['HTTP_HOST']?>/download.php/?secret=<?= $_GET['secret']; ?>" download">Download</a></div>
+  <p><img src="<?= qrcode("https://" . $_SERVER["HTTP_HOST"] . "/download.php?secret=" . $_GET["secret"], 3, 'XXXXXX', '000000'); ?>" ></p>
 </div></body>
 </html>

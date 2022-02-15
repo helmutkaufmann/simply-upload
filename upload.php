@@ -47,6 +47,8 @@ if(!isset($_COOKIE[$application])) {
   $date = $_COOKIE[$application ."date"];
 }
 
+$user = $_POST["identifier"];
+
 $allowedTypes = [
            'video/3gpp2'                                                               => '3g2',
            'video/3gp'                                                                 => '3gp',
