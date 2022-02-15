@@ -4,20 +4,69 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3bed307515528187ba312ded3b8ffd4",
+    "content-hash": "72aa8092ce50d1111b11b52923d0ee7e",
     "packages": [
         {
-            "name": "enyo/dropzone",
-            "version": "v5.9.3",
+            "name": "components/jquery",
+            "version": "3.6.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dropzone/dropzone-packagist.git",
-                "reference": "286b2dc1f1195bd12169e4c9d5f91cfbe46e245f"
+                "url": "https://github.com/components/jquery.git",
+                "reference": "6cf38ee1fd04b6adf8e7dda161283aa35be818c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dropzone/dropzone-packagist/zipball/286b2dc1f1195bd12169e4c9d5f91cfbe46e245f",
-                "reference": "286b2dc1f1195bd12169e4c9d5f91cfbe46e245f",
+                "url": "https://api.github.com/repos/components/jquery/zipball/6cf38ee1fd04b6adf8e7dda161283aa35be818c3",
+                "reference": "6cf38ee1fd04b6adf8e7dda161283aa35be818c3",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "jquery.js"
+                    ],
+                    "files": [
+                        "jquery.min.js",
+                        "jquery.min.map",
+                        "jquery.slim.js",
+                        "jquery.slim.min.js",
+                        "jquery.slim.min.map"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "JS Foundation and other contributors"
+                }
+            ],
+            "description": "jQuery JavaScript Library",
+            "homepage": "http://jquery.com",
+            "support": {
+                "forum": "http://forum.jquery.com",
+                "irc": "irc://irc.freenode.org/jquery",
+                "issues": "https://github.com/jquery/jquery/issues",
+                "source": "https://github.com/jquery/jquery",
+                "wiki": "http://docs.jquery.com/"
+            },
+            "time": "2021-03-20T19:13:42+00:00"
+        },
+        {
+            "name": "enyo/dropzone",
+            "version": "v6.0.0-beta.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dropzone/dropzone-packagist.git",
+                "reference": "6b788b4ca881f83602d800b3f6a59eff64b54928"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dropzone/dropzone-packagist/zipball/6b788b4ca881f83602d800b3f6a59eff64b54928",
+                "reference": "6b788b4ca881f83602d800b3f6a59eff64b54928",
                 "shasum": ""
             },
             "type": "library",
@@ -42,9 +91,9 @@
             ],
             "support": {
                 "issues": "https://github.com/dropzone/dropzone-packagist/issues",
-                "source": "https://github.com/dropzone/dropzone-packagist/tree/v5.9.3"
+                "source": "https://github.com/dropzone/dropzone-packagist/tree/v6.0.0-beta.2"
             },
-            "time": "2021-09-21T17:03:36+00:00"
+            "time": "2021-11-29T10:15:06+00:00"
         },
         {
             "name": "rakibtg/sleekdb",
@@ -105,16 +154,16 @@
         },
         {
             "name": "uikit/uikit",
-            "version": "v3.10.1",
+            "version": "v3.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/uikit/uikit.git",
-                "reference": "105b3ca57f500d062e75d7b8d0c0195943031e4f"
+                "reference": "4f815b6482fb93c98452c857b7a9a1450fecd660"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/uikit/uikit/zipball/105b3ca57f500d062e75d7b8d0c0195943031e4f",
-                "reference": "105b3ca57f500d062e75d7b8d0c0195943031e4f",
+                "url": "https://api.github.com/repos/uikit/uikit/zipball/4f815b6482fb93c98452c857b7a9a1450fecd660",
+                "reference": "4f815b6482fb93c98452c857b7a9a1450fecd660",
                 "shasum": ""
             },
             "type": "library",
@@ -131,7 +180,7 @@
             "homepage": "https://getuikit.com/",
             "support": {
                 "issues": "https://github.com/uikit/uikit/issues",
-                "source": "https://github.com/uikit/uikit/tree/v3.10.1"
+                "source": "https://github.com/uikit/uikit/tree/v3.11.1"
             },
             "funding": [
                 {
@@ -139,13 +188,15 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-19T13:32:03+00:00"
+            "time": "2022-02-07T15:12:19+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "enyo/dropzone": 10
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
