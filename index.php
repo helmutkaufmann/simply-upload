@@ -293,6 +293,8 @@ function generateRandomString($length = 10) {
       Dropzone.discover();
     </script>
 
+    <div class="uk-button uk-button-small uk-button-default uk-width-1-3@s uk-width-1-6@m"><a href="https://<?= $_SERVER['HTTP_HOST']?>" target="_self">New Uploader</a></div>
+
     <p class="uk-text-small uk-text-center" >&copy; 2022 Helmut Kaufmann</p>
 
   </div>
