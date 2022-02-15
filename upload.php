@@ -255,7 +255,7 @@ $uploadInfo = [
  "date" => $date,
  "filename" => "$targetDirectory/$filename.$extension",
  "identifier" => $_POST["identifier"],
- "secret" => $hash=crypt($_POST["identifier"], "ThisIsMyBloodySalt987")
+ "secret" => $hash=crypt($_POST["identifier"], MYSALT)
 
 ];
 $results = $uploadDatabase->insert($uploadInfo);

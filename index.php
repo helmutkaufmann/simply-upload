@@ -1,11 +1,12 @@
 <?php
-  include_once("config.php");
-  if ($_GET["identifier"])
-    $uniqid=$_GET["identifier"];
-  else {
-    $uniqid=uniqid();
-  }
-  $hash=crypt($uniqid, MYSALT);
+
+include_once("config.php");
+if (array_key_exists("identifier", $_GET))
+  $uniqid=$_GET["identifier"];
+else {
+  $uniqid=uniqid();
+}
+$hash=crypt($uniqid, MYSALT);
 
 function chooseRandomString() {
   $var = file_get_contents('captcha.txt'); //Take the contents from the file to the variable
@@ -24,7 +25,6 @@ function generateRandomString($length = 10) {
  }
 
  function generateCaptchaImage($text = "verbatim"){
-
 
       $width  = 150;
       $height = 30;
@@ -124,7 +124,7 @@ function generateRandomString($length = 10) {
         var newsize = document.getElementById("resizeto").value;
 
         if (!newsize)
-          newsize = 1000000;
+          newsize = 100000000;
 
         width = newsize;
         height = newsize;
@@ -265,7 +265,7 @@ function generateRandomString($length = 10) {
     <? $url="https://" . $_SERVER['HTTP_HOST'] . "?identifier=" . $uniqid; ?>
     <p>The public upload URL is: <a href="<?= $url ?>" target='upload'><?= $url ?></a>
     <? $url="https://" . $_SERVER['HTTP_HOST'] . "/administration.php?secret=" .$hash; ?>
-    <?= (!$_GET['identifier'] ? "<br>And the admin URL, which you will NOT see again, is: <a href='" . $url . "' target='administration'>$url</a>": "") ?></p>
+    <?= (!array_key_exists("identifier", $_GET) ? "<br>And the admin URL, which you will NOT see again, is: <a href='" . $url . "' target='administration'>$url</a>": "") ?></p>
 
     <form action="upload.php" class="uk-form-stacked dropzone" uk-height-viewport="expand: true" method="post" enctype="multipart/form-data" id="dropper">
           <div class="uk-margin">

@@ -28,7 +28,7 @@
       		type: request_method,
       		data : form_data
 	     }).done (function (response){ //
-		        alert("done -- " + response);
+		        // alert("done -- " + response);
             $("#row"+document).remove();
 	        });
     });
@@ -105,11 +105,11 @@
         $id=$upload["_id"];
         $secret=$upload["secret"];
 
-        echo "<td><form action='deleteIndividual.php' method='get' id='document$id' hidden>";
+        echo "<td><form action='deleteIndividual.php' method='get' id='document$id'>";
         echo "<input id='ident' name='ident' value='$id' hidden>";
         echo "<input id='secret' name='secret' value='$secret' hidden>";
-        echo "</form>";
-        echo "<button class='uk-icon-button' uk-icon='trash' type='submit'></button></td></tr>";
+        echo "<button class='uk-icon-button' uk-icon='trash' type='submit'></button></td>";
+        echo "</form></tr>";
         echo "<script>deleteDocument('document$id');</script>";
 
       }
