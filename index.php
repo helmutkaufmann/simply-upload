@@ -264,7 +264,7 @@ function generateRandomString($length = 10) {
 
     <? $url="https://" . $_SERVER['HTTP_HOST'] . "?identifier=" . $uniqid; ?>
     <p>The public upload URL is: <a href="<?= $url ?>" target='upload'><?= $url ?></a>
-    <? $url="https://" . $_SERVER['HTTP_HOST'] . "/administration.php?secret=" .$hash; ?>
+    <? $url="https://" . $_SERVER['HTTP_HOST'] . "/administration.php?secret=" .$hash . "&identifier=" .  $uniqid;?>
     <?= (!array_key_exists("identifier", $_GET) ? "<br>And the admin URL, which you will NOT see again, is: <a href='" . $url . "' target='administration'>$url</a>": "") ?></p>
 
     <form action="upload.php" class="uk-form-stacked dropzone" uk-height-viewport="expand: true" method="post" enctype="multipart/form-data" id="dropper">
