@@ -1,7 +1,7 @@
 <html>
 <head>
 
-  <title>Simply Upload</title>
+  <title>Simply Upload Administration</title>
   <meta charset="utf-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -123,7 +123,7 @@
   <form action="deleteAll.php" method="get" id="deleteAll">
     <input class="uk-input" type="text"  id="secret" name="secret" value="<?= urldecode($_GET['secret'])?>" hidden>
     <button class="uk-button uk-button-small uk-button-danger uk-width-1-3@s uk-width-1-6@m" type="submit" form="deleteAll">Delete All</button>
-    <div class="uk-button uk-button-small uk-button-default uk-width-1-3@s uk-width-1-6@m"><a href="https://<?= $_SERVER['HTTP_HOST']?>?identifier=<?= $_GET['identifier'] ?>" target="<?= $_GET['identifier']; ?>">Goto Uploader</a></div>
+    <div class="uk-button uk-button-small uk-button-default uk-width-1-3@s uk-width-1-6@m"><a href="https://<?= $_SERVER['HTTP_HOST']?>?identifier=<?= $_GET['identifier'] ?>" target="uploader<?= $_GET['identifier']; ?>">Goto Uploader</a></div>
     <div class="uk-button uk-button-small uk-button-default uk-width-1-3@s uk-width-1-6@m"><a href="https://<?= $_SERVER['HTTP_HOST']?>" target="_blank">New Uploader</a></div>
   </form>
 

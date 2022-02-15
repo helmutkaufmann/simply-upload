@@ -94,6 +94,8 @@ function generateRandomString($length = 10) {
   <script src="/assets/enyo/dropzone/dist/dropzone-min.js"></script>
   <link href="/assets/enyo/dropzone/dist/dropzone.css" rel="stylesheet" type="text/css" />
 
+  <script>self.window.name = "uploader<?= $uniqid; ?>"</script>
+
 </head>
 
 <body>
