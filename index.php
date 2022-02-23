@@ -262,19 +262,8 @@ function generateRandomString($length = 10) {
   </script>
 
   <div class="uk-padding-large uk-container">
-
     <h1>Simply Upload</h1>
-    <p>A very simple but cenvient uploader for images, documents, whatever is needed.</p>
-    <p>Please enter your name and a title for the upload, such as date of a venue along with the venue name, solve the Captch and start uploading.
-       Your images will be uploaded full size unless you define a maximum, which causes a resize on you device before the upload.</p>
-
-    <p>You can send the public URL to anyone you want to upload images.</p>
-
-
-    <? $url="https://" . $_SERVER['HTTP_HOST'] . "?identifier=" . $uniqid; ?>
-    <p>The public upload URL is: <a href="<?= $url ?>" target='upload'><?= $url ?></a></p>
-    <? $url="https://" . $_SERVER['HTTP_HOST'] . "/administration.php?secret=" .$hash . "&identifier=" .  $uniqid;?>
-    <p><?= (!array_key_exists("identifier", $_GET) ? "And the admin URL, which you will NOT see again, is: <a href='" . $url . "' target='administration'>$url</a>": "") ?></p>
+    <p>A very simple but convenient uploader for images, documents, whatever is needed. Instructions at the bottom of the page.</p>
 
     <form action="upload.php" class="uk-form-stacked dropzone" uk-height-viewport="expand: true" method="post" enctype="multipart/form-data" id="dropper">
           <div class="uk-margin">
@@ -304,7 +293,21 @@ function generateRandomString($length = 10) {
 
     <div class="uk-button uk-button-small uk-button-default uk-width-1-3@s uk-width-1-6@m"><a href="https://<?= $_SERVER['HTTP_HOST']?>" target="_self">New Uploader</a></div>
 
-    <p class="uk-text-small uk-text-center" >&copy; 2022 Helmut Kaufmann</p>
+
+    <h4>Links</h4>
+    <? $url="https://" . $_SERVER['HTTP_HOST'] . "?identifier=" . $uniqid; ?>
+    <p>Public URL: <a href="<?= $url ?>" target='upload'><?= $url ?></a><br>You can send the public URL to anyone you want to upload images.</p>
+    <? $url="https://" . $_SERVER['HTTP_HOST'] . "/administration.php?secret=" .$hash . "&identifier=" .  $uniqid;?>
+    <p><?= (!array_key_exists("identifier", $_GET) ? "Admin URL: <a href='" . $url . "' target='administration'>$url</a>": "") ?><br>Please, note the URL down as it will not displayed again.</p>
+
+    <h4>Instructions</h4>
+
+    <p>Please enter your name and a title for the upload, such as date of a venue along with the venue name, solve the Captch and start uploading.
+       Your images will be uploaded full size unless you define a maximum, which causes a resize on you device before the upload.</p>
+
+
+
+    <p class="uk-text-small uk-text-center" >&copy; 2022 Helmut Kaufmann, K&uuml;ssnacht am Rigi, Switzerland, <a href="https://mercator.li" target="_blank">mercator.li</a></p>
 
   </div>
 
